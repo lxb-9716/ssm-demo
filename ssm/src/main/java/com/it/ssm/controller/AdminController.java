@@ -47,7 +47,7 @@ public class AdminController {
             System.out.println(admin);
         }
         String jsonString = JSON.toJSONString(adminList);
-        System.out.println("=============将对象转换成json==============");
+        System.out.println("=============将对象转换成json形式数据在页面上展示==============");
         System.out.println(jsonString);
         return jsonString;
     }
@@ -64,7 +64,7 @@ public class AdminController {
             System.out.println(admin);
         }
         String jsonString = JSON.toJSONString(adminList);
-        System.out.println("=============将对象转换成json==============");
+        System.out.println("=============将对象转换成json形式数据在页面上展示==============");
         System.out.println(jsonString);
         return jsonString;
     }
