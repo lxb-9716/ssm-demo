@@ -33,16 +33,26 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <!--加载mybatis的核心配置文件-->
         <property name="configLocation" value="classpath:mybatisConfig.xml"/>
     </bean>
-    <!--扫描mapper接口所在的包，为mapper创建实现类-->
+    <!--mapper接口动态代理对象的生成-->
+    <!--扫描mapper接口所在的包，为mapper接口创建动态代理对象-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.it.ssm.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sessionFactoryBean"/>
     </bean>
+    <!--mapper接口的单个配置，如果有多个mapper接口，需要配置多个，不建议使用-->
+    <!--<bean id="mapperFactoryBean" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.it.ssm.mapper.AdminMapper"/>
+        <property name="sqlSessionFactory" ref="sessionFactoryBean"/>
+    </bean>-->
 
     <!--声明式事务控制相关的配置-->
     <!--事务管理器的配置-->
     <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!--注入数据源-->
         <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="adminMapperDao" class="com.it.ssm.mapper.AdminMapperDao">
+        <property name="sqlSessionFactory" ref="sessionFactoryBean"/>
     </bean>
     <!--配置事务增强-->
     <tx:advice transaction-manager="dataSourceTransactionManager" id="txAdvice">
@@ -56,5 +66,5 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"></aop:advisor>
     </aop:config>
     <!--注解方式的事务配置-->
-        <tx:annotation-driven/>
+    <tx:annotation-driven/>
 </beans>

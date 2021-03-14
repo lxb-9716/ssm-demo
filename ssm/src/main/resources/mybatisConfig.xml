@@ -10,4 +10,8 @@
         <package name="com.it.ssm.pojo"></package>
     </typeAliases>
 
+    <mappers>
+        <package name="com.it.ssm.mapper"/>
+    </mappers>
+
 </configuration>
